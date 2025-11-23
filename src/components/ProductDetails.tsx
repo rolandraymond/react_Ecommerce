@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "./store";
 import { addToCart } from "./cartSlice";
-// const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL;
 type Product = {
   id: number;
   title: string;
@@ -26,7 +26,7 @@ function ProductDetails() {
   useEffect(() => {
     if (!id) return;
     axios
-      .get(`https://dummyjson.com/products/${id}`)
+      .get(`${API}/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.log(err));
   }, [id]);

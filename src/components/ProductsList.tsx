@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "./store";
+import { addToCart } from "./cartSlice";
+// const API = import.meta.env.VITE_API_BASE_URL;
 type Product = {
   id: number;
   title: string;
@@ -11,6 +14,7 @@ type Product = {
 };
 
 function ProductsList() {
+    const dispatch = useDispatch<AppDispatch>();
     const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(0);
   const limit = 10;
@@ -28,6 +32,17 @@ function ProductsList() {
   const prevPage = () => {
     if (page > 0) setPage(page - 1);
   };
+  const handleAdd = (item: Product) => {
+  dispatch(
+    addToCart({
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      thumbnail: item.thumbnail,
+      quantity: 1,
+    })
+  );
+};
 
   return (
     <div className="container mx-auto py-6">
@@ -59,12 +74,20 @@ function ProductsList() {
               )}
             </div>
 
-            <Link
+             <Link
               to={`/products/${item.id}`}
-              className=" inline-block bg-blue-600 mt-2 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md text-center transition"
-            >
+              className=" inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md text-center transition"
+              >
               View Details
-            </Link>
+              </Link>
+
+              <button
+              onClick={() => handleAdd(item)}
+              className="mt-2 bg-green-600 hover:bg-green-700 text-white text-sm py-2 px-4 rounded-md transition"
+              >
+              Add to Cart
+              </button>
+
           </div>
         </div>
       </div>

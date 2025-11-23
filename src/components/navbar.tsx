@@ -26,6 +26,9 @@ function Navbar() {
             Cart
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/contact">Contact Us</NavLink>
+        </li>
       </ul>
     </nav>
   );

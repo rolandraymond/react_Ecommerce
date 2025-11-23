@@ -1,13 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import {  lazy } from "react";
 import Navbar from "./components/navbar";
-import ProductsList from "./components/ProductsList";
-import ProductDetails from "./components/ProductDetails";
-import Cart from "./components/carts";
-import NotFound from "./components/NotFound";
+const ProductsList = lazy(() => import("./components/ProductsList"));
+const ProductDetails = lazy(() => import("./components/ProductDetails"));
+const Cart = lazy(() => import("./components/carts"));
+const NotFound = lazy(() => import("./components/NotFound"));
+const ContactUs = lazy(() => import("./components/ContactUs"));
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
 
       <Routes>
@@ -16,8 +18,10 @@ function App() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/contact" element={<ContactUs />} />
+
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
